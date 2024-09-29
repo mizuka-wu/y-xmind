@@ -11,6 +11,9 @@ dependencies:
   xmind:
     specifier: ^2.2.33
     version: 2.2.33
+  xmind-model:
+    specifier: ^1.1.12
+    version: 1.1.12
   xml-formatter:
     specifier: ^3.6.3
     version: 3.6.3

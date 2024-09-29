@@ -1,5 +1,5 @@
 import { XMindEmbedViewer } from "xmind-embed-viewer";
-import { xmindToY } from "../src/index";
+import { xmindToY, name } from "../src/index";
 
 import "./style.css";
 const beforeViewer = new XMindEmbedViewer({
@@ -34,5 +34,6 @@ fetch("./demo.xmind")
     return xmindToY(buffer);
   })
   .then((yDoc) => {
-    console.log(yDoc);
+    const xmlString = yDoc.getXmlFragment(name).toString();
+    console.log("转换后", xmlString);
   });

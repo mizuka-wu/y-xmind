@@ -21,6 +21,7 @@
   "dependencies": {
     "jszip": "^3.10.1",
     "xmind": "^2.2.33",
+    "xmind-model": "^1.1.12",
     "xml-formatter": "^3.6.3",
     "xml-js": "^1.6.11",
     "yjs": "^13.6.19"

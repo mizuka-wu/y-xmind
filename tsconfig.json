@@ -23,5 +23,5 @@
       "@*": ["./src/*"]
     }
   },
-  "include": ["src", "types"]
+  "include": ["src", "types", "demo"]
 }

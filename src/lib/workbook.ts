@@ -1,27 +1,23 @@
 /**
  * 转换 Doc/Workbook
+ * @todo 增加转换事件绑定
  */
 import { Doc } from "yjs";
 import { Workbook } from "xmind";
-import { parseFromXmindFile } from "./utils/parseFromFile";
+import { parseWorkbook } from "./utils/parseFile";
+
 import type { WookbookTransfer } from "types/index.d";
 
 export const name = "workbook";
 
 export const workbookTransfer: WookbookTransfer = {
-  async toY(workbook, xmlFragmentName = name) {
+  async toY(source, xmlFragmentName = name) {
     const ydoc = new Doc();
     const xmlFragment = ydoc.getXmlFragment(xmlFragmentName);
 
-    /**
-     * 加载文件
-     */
-    if (workbook instanceof ArrayBuffer) {
-      const xml = parseFromXmindFile(workbook);
-    } else if (workbook instanceof Workbook) {
-    } else {
-      throw new Error("Invalid workbook");
-    }
+    const workbook =
+      source instanceof ArrayBuffer ? await parseWorkbook(source) : source;
+    console.log(workbook);
 
     return ydoc;
   },
