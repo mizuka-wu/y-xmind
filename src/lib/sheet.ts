@@ -5,6 +5,7 @@
 import { XmlElement } from "yjs";
 import { v4 } from "uuid";
 import { topicTransfer, TOPIC_NODE_NAME } from "./topic";
+import { styleTransfer, STYLE_NODE_NAME } from "./style";
 import type { SheetData, ITransfer } from "types/index.d";
 
 const SHEET_NODE_NAME = "sheet";
@@ -14,7 +15,11 @@ export const sheetTransfer: ITransfer<SheetData, SheetData[]> = {
     const xmlElement = new XmlElement(SHEET_NODE_NAME);
     xmlElement.setAttribute("id", sheetData.id);
     xmlElement.setAttribute("title", sheetData.title);
+    // rootTopic
     xmlElement.insert(0, [topicTransfer.toY(sheetData.rootTopic)]);
+    // style
+    if (sheetData.style)
+      xmlElement.insert(0, [styleTransfer.toY(sheetData.style)]);
 
     return xmlElement;
   },
@@ -36,6 +41,10 @@ export const sheetTransfer: ITransfer<SheetData, SheetData[]> = {
         switch (child.nodeName) {
           case TOPIC_NODE_NAME: {
             sheetData.rootTopic = topicTransfer.fromY(child, sheetData);
+            break;
+          }
+          case STYLE_NODE_NAME: {
+            sheetData.style = styleTransfer.fromY(child, sheetData);
             break;
           }
           default:

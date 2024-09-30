@@ -2,6 +2,7 @@ import { XMindEmbedViewer } from "xmind-embed-viewer";
 import { Dumper } from "xmind/dist/browser";
 import formatter from "xml-formatter";
 import JSZip from "jszip";
+import { parseSheets } from "../src/lib/utils/parseFile";
 import { xmindToY, yToXmind, FRAGMENT_NAME } from "../src/index";
 
 import "./style.css";
@@ -33,7 +34,10 @@ fetch("./demo.xmind")
     beforeViewer.load(buffer);
     return buffer;
   })
-  .then((buffer) => {
+  .then(async (buffer) => {
+    // 生成原始的workbook
+    const sheets = await parseSheets(buffer);
+    console.log("original sheets", sheets);
     return xmindToY(buffer);
   })
   .then((yDoc) => {
@@ -44,6 +48,7 @@ fetch("./demo.xmind")
     return yToXmind(yDoc);
   })
   .then((workbook) => {
+    console.log("transfer", workbook.toJSON());
     const dumper = new Dumper({ workbook });
     const files = dumper.dumping();
     const zip = new JSZip();

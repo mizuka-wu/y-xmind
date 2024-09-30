@@ -1,6 +1,6 @@
 /**
- * 转换 Sheet
- * @todo 绑定 yjs和sheet的事件
+ * 转换 Topic
+ * @todo 绑定 yjs和 topic 的事件
  */
 import { XmlElement } from "yjs";
 import type { TopicData, SheetData, ITransfer } from "types/index.d";
