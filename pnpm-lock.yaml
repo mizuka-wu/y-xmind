@@ -8,6 +8,9 @@ dependencies:
   jszip:
     specifier: ^3.10.1
     version: 3.10.1
+  uuid:
+    specifier: ^10.0.0
+    version: 10.0.0
   xmind:
     specifier: ^2.2.33
     version: 2.2.33
@@ -31,6 +34,9 @@ devDependencies:
   '@types/jest':
     specifier: ^29.5.13
     version: 29.5.13
+  '@types/uuid':
+    specifier: ^10.0.0
+    version: 10.0.0
   jest:
     specifier: ^29.7.0
     version: 29.7.0
@@ -1103,6 +1109,10 @@ packages:
 
   /@types/stack-utils@2.0.3:
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
+    dev: true
+
+  /@types/uuid@10.0.0:
+    resolution: {integrity: sha512-7gqG38EyHgyP1S+7+xomFtL+ZNHcKv6DwNaCZmJmo1vgMugyF3TCnXVg4t1uk89mLNwnLtnY3TpOpCOyp1/xHQ==}
     dev: true
 
   /@types/yargs-parser@21.0.3:
@@ -3576,6 +3586,11 @@ packages:
       is-typed-array: 1.1.13
       which-typed-array: 1.1.15
     dev: true
+
+  /uuid@10.0.0:
+    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    hasBin: true
+    dev: false
 
   /uuid@3.4.0:
     resolution: {integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==}

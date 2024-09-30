@@ -2,12 +2,12 @@
  * 从xmind文件读取 xml
  */
 import JSZip from "jszip";
-import { Workbook as BaseWorkbook } from "xmind";
+import { Workbook as OriginalWorkbook } from "xmind";
 import { Workbook as XmindWorkbook } from "xmind-model";
 import type { SheetData } from "xmind-model/types/models/sheet";
 
 //@ts-ignore
-class Workbook extends BaseWorkbook {
+class Workbook extends OriginalWorkbook {
   private resources: { [key: string]: string } = {};
   private workbook: XmindWorkbook;
   constructor(sheetDataList: SheetData[]) {
@@ -47,8 +47,18 @@ export async function parseSheets(file: ArrayBuffer) {
   }
 }
 
-export async function parseWorkbook(file: ArrayBuffer) {
+export async function parseWorkbookByArrayBuffer(
+  file: ArrayBuffer,
+): Promise<OriginalWorkbook> {
   const sheets = await parseSheets(file);
   if (!sheets) throw new Error("paser fail");
-  return new Workbook(sheets);
+  return new Workbook(sheets) as unknown as OriginalWorkbook;
+}
+
+export function parseWorkbookBySheetDataList(
+  sheets: SheetData[],
+): OriginalWorkbook {
+  if (!sheets || !Array.isArray(sheets) || !sheets.length)
+    throw new Error("sheets is not array");
+  return new Workbook(sheets) as unknown as OriginalWorkbook;
 }

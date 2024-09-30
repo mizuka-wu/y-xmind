@@ -1,5 +1,8 @@
 import { XMindEmbedViewer } from "xmind-embed-viewer";
-import { xmindToY, name } from "../src/index";
+import { Dumper } from "xmind/dist/browser";
+import formatter from "xml-formatter";
+import JSZip from "jszip";
+import { xmindToY, yToXmind, FRAGMENT_NAME } from "../src/index";
 
 import "./style.css";
 const beforeViewer = new XMindEmbedViewer({
@@ -34,6 +37,21 @@ fetch("./demo.xmind")
     return xmindToY(buffer);
   })
   .then((yDoc) => {
-    const xmlString = yDoc.getXmlFragment(name).toString();
-    console.log("转换后", xmlString);
+    const fragment = yDoc.getXmlFragment(FRAGMENT_NAME);
+    console.log("fragment", fragment);
+    const xmlString = fragment.toString();
+    console.log("xmlString" + "\n" + formatter(xmlString));
+    return yToXmind(yDoc);
+  })
+  .then((workbook) => {
+    const dumper = new Dumper({ workbook });
+    const files = dumper.dumping();
+    const zip = new JSZip();
+    files.forEach((file) => {
+      zip.file(file.filename, file.value);
+    });
+    return zip.generateAsync({ type: "arraybuffer" });
+  })
+  .then((buffer) => {
+    afterViewer.load(buffer);
   });
