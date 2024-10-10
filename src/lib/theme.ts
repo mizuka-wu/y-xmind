@@ -24,7 +24,10 @@ export const themeTransfer: ITransfer<ThemeData, SheetData> = {
       } else {
         const styleData = themeData[key]
         // 检测是否符合style规则
-        if (!styleData || !styleData.id || !styleData.properties) continue;
+        if (!styleData || !styleData.id || !styleData.properties) {
+          console.warn(`Key ${key} in theme is invalid in ThemeData`, key);
+          continue;
+        }
         const styleXmlElement = styleTransfer.toY(styleData);
         styleXmlElement.setAttribute('key', key);
         xmlElement.insert(0, [styleXmlElement]);

@@ -1,5 +1,6 @@
 /**
  * 转换 Style
+ * @todo 转为function导出，用来自定义ParentNode类型
  * @todo 绑定 yjs 和 style 的事件
  */
 import { XmlElement } from "yjs";
@@ -7,13 +8,14 @@ import type {
   TopicData,
   StyleData,
   ITransfer,
-  ThemeData
+  ThemeData,
+  RelationshipData
 } from "types/index.d";
 
 export const STYLE_NODE_NAME = "style";
 const STYLE_PROPERTY_NODE_NAME = "properties";
 
-export const styleTransfer: ITransfer<StyleData, TopicData | ThemeData> = {
+export const styleTransfer: ITransfer<StyleData, TopicData | ThemeData | RelationshipData> = {
   toY(styleData) {
     const xmlElement = new XmlElement(STYLE_NODE_NAME);
     xmlElement.setAttribute("id", styleData.id);
