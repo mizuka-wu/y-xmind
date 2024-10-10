@@ -22,11 +22,12 @@ export const themeTransfer: ITransfer<ThemeData, SheetData> = {
       if (key === 'id' || key === 'title') {
         xmlElement.setAttribute(key, themeData[key]);
       } else {
-        const styleData: IThemeStyleData = {
-          key,
-          ...themeData[key] as StyleData
-        }
-        xmlElement.insert(0, [styleTransfer.toY(styleData)]);
+        const styleData = themeData[key]
+        // 检测是否符合style规则
+        if (!styleData || !styleData.id || !styleData.properties) continue;
+        const styleXmlElement = styleTransfer.toY(styleData);
+        styleXmlElement.setAttribute('key', key);
+        xmlElement.insert(0, [styleXmlElement]);
       }
     }
 
