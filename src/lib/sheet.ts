@@ -21,6 +21,12 @@ export const sheetTransfer: ITransfer<SheetData, SheetData[]> = {
     if (sheetData.style)
       xmlElement.insert(0, [styleTransfer.toY(sheetData.style)]);
 
+    if (sheetData.topicPositioning)
+      xmlElement.setAttribute("topic-positioning", sheetData.topicPositioning);
+
+    if (sheetData.topicOverlapping)
+      xmlElement.setAttribute("topic-overlapping", sheetData.topicOverlapping);
+
     return xmlElement;
   },
   fromY(xmlElement) {
@@ -33,6 +39,16 @@ export const sheetTransfer: ITransfer<SheetData, SheetData[]> = {
       title,
       rootTopic: { id: v4(), title: "Default Title" },
     };
+
+    if (xmlElement.getAttribute("topic-positioning"))
+      sheetData.topicPositioning = xmlElement.getAttribute(
+        "topic-positioning",
+      ) as "free" | "fixed";
+
+    if (xmlElement.getAttribute("topic-overlapping"))
+      sheetData.topicOverlapping = xmlElement.getAttribute(
+        "topic-overlapping",
+      ) as "overlap" | "none";
 
     // 补全属性
     let child = xmlElement.firstChild;
