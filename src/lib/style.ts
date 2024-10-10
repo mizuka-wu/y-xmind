@@ -3,12 +3,17 @@
  * @todo 绑定 yjs 和 style 的事件
  */
 import { XmlElement } from "yjs";
-import type { TopicData, StyleData, ITransfer } from "types/index.d";
+import type {
+  TopicData,
+  StyleData,
+  ITransfer,
+  ThemeData
+} from "types/index.d";
 
 export const STYLE_NODE_NAME = "style";
 const STYLE_PROPERTY_NODE_NAME = "properties";
 
-export const styleTransfer: ITransfer<StyleData, TopicData> = {
+export const styleTransfer: ITransfer<StyleData, TopicData | ThemeData> = {
   toY(styleData) {
     const xmlElement = new XmlElement(STYLE_NODE_NAME);
     xmlElement.setAttribute("id", styleData.id);

@@ -6,6 +6,7 @@ import { XmlElement } from "yjs";
 import { v4 } from "uuid";
 import { topicTransfer, TOPIC_NODE_NAME } from "./topic";
 import { styleTransfer, STYLE_NODE_NAME } from "./style";
+import { themeTransfer, THEME_NODE_NAME } from './theme'
 import type { SheetData, ITransfer } from "types/index.d";
 
 const SHEET_NODE_NAME = "sheet";
@@ -26,6 +27,9 @@ export const sheetTransfer: ITransfer<SheetData, SheetData[]> = {
 
     if (sheetData.topicOverlapping)
       xmlElement.setAttribute("topic-overlapping", sheetData.topicOverlapping);
+
+    if (sheetData.theme)
+      xmlElement.insert(0, [themeTransfer.toY(sheetData.theme)]);
 
     return xmlElement;
   },
@@ -61,6 +65,11 @@ export const sheetTransfer: ITransfer<SheetData, SheetData[]> = {
           }
           case STYLE_NODE_NAME: {
             sheetData.style = styleTransfer.fromY(child, sheetData);
+            break;
+          }
+
+          case THEME_NODE_NAME: { 
+            sheetData.theme = themeTransfer.fromY(child, sheetData);
             break;
           }
           default:
